@@ -1,32 +1,31 @@
-
 import { Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
 
+  // Kiểm tra theme hiện tại khi component mount
   useEffect(() => {
-    // Check for saved theme preference or user's system preference
-    const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    
-    const initialTheme = savedTheme || (prefersDark ? "dark" : "light");
-    setTheme(initialTheme);
-    applyTheme(initialTheme);
+    const isDark = document.documentElement.classList.contains("dark");
+    setIsDarkTheme(isDark);
   }, []);
 
-  const applyTheme = (newTheme: "light" | "dark") => {
-    const root = window.document.documentElement;
-    root.classList.remove("light", "dark");
-    root.classList.add(newTheme);
-    localStorage.setItem("theme", newTheme);
-  };
-
   const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
-    applyTheme(newTheme);
+    const newTheme = isDarkTheme ? "light" : "dark";
+    setIsDarkTheme(!isDarkTheme);
+
+    // Cập nhật theme
+    if (newTheme === "dark") {
+      document.documentElement.classList.add("dark");
+      document.documentElement.classList.remove("light");
+    } else {
+      document.documentElement.classList.add("light");
+      document.documentElement.classList.remove("dark");
+    }
+
+    // Lưu vào localStorage
+    localStorage.setItem("theme", newTheme);
   };
 
   return (
@@ -34,15 +33,20 @@ export function ThemeToggle() {
       variant="ghost"
       size="icon"
       onClick={toggleTheme}
-      aria-label={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
-      className="rounded-full w-9 h-9"
-      title={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
+      aria-label={
+        isDarkTheme ? "Chuyển sang chế độ sáng" : "Chuyển sang chế độ tối"
+      }
+      title={isDarkTheme ? "Chuyển sang chế độ sáng" : "Chuyển sang chế độ tối"}
+      className="focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
     >
-      {theme === "light" ? (
-        <Moon size={18} className="text-foreground" />
+      {isDarkTheme ? (
+        <Sun className="h-5 w-5" aria-hidden="true" />
       ) : (
-        <Sun size={18} className="text-foreground" />
+        <Moon className="h-5 w-5" aria-hidden="true" />
       )}
+      <span className="sr-only">
+        {isDarkTheme ? "Chuyển sang chế độ sáng" : "Chuyển sang chế độ tối"}
+      </span>
     </Button>
   );
 }

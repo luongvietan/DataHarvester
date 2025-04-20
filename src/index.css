@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -74,7 +76,7 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 175 70% 40%;
-    
+
     --sidebar-background: 222 20% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 175 70% 40%;
@@ -85,8 +87,6 @@
     --sidebar-ring: 175 70% 40%;
   }
 }
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @layer base {
   * {

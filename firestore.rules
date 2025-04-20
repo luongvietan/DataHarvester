@@ -1,0 +1,38 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Quy tắc cho người dùng
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      allow create: if request.auth != null;
+    }
+    
+    // Quy tắc cho scraping tasks
+    match /scrapingTasks/{taskId} {
+      allow read, write: if request.auth != null && request.auth.uid == resource.data.userId;
+      allow create: if request.auth != null;
+    }
+    
+    // Quy tắc cho custom requests
+    match /customRequests/{requestId} {
+      allow read, delete: if request.auth != null && request.auth.uid == resource.data.userId;
+      allow create: if request.auth != null;
+      // Chỉ admin có thể cập nhật trạng thái yêu cầu
+      allow update: if request.auth != null && 
+        ((request.auth.uid == resource.data.userId && 
+          request.resource.data.diff(resource.data).affectedKeys().hasOnly(['websiteUrl', 'description', 'attachments'])) ||
+        (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin'));
+    }
+    
+    // Quy tắc cho admin
+    match /admin/{docId} {
+      allow read, write: if request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    // Quy tắc mặc định - từ chối mọi quyền truy cập
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+} 

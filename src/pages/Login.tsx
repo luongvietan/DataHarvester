@@ -1,26 +1,65 @@
-
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Mail, Key, Eye, EyeOff, LogIn } from "lucide-react";
-import { useState } from "react";
+import { useState, FormEvent } from "react";
+import { useFirebaseAuth } from "@/hooks/use-firebase-auth";
+import { useToast } from "@/components/ui/use-toast";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const { signIn } = useFirebaseAuth();
+  const { toast } = useToast();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      await signIn(email, password);
+      toast({
+        title: "Login Successful",
+        description: "You are being redirected to the dashboard.",
+      });
+      navigate("/dashboard");
+    } catch (error: unknown) {
+      const authError = error as { message?: string };
+      toast({
+        title: "Login Failed",
+        description:
+          authError.message ||
+          "Please check your login credentials and try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1 flex flex-col items-center justify-center px-4 py-8 animate-fade-in">
-        <h1 className="text-3xl font-bold mb-4 text-center text-primary">Sign in to DataHarvester</h1>
+        <h1 className="text-3xl font-bold mb-4 text-center text-primary">
+          Sign in to DataHarvester
+        </h1>
         <div className="w-full max-w-sm p-8 rounded-2xl bg-gradient-to-br from-card/80 via-secondary/70 to-background/70 shadow-xl glass-morphism border border-border">
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
-              <Label htmlFor="email" className="mb-1 block">Email</Label>
+              <Label htmlFor="email" className="mb-1 block">
+                Email
+              </Label>
               <div className="relative">
-                <Mail className="absolute left-3 top-2.5 text-muted-foreground" size={18} />
+                <Mail
+                  className="absolute left-3 top-2.5 text-muted-foreground"
+                  size={18}
+                />
                 <Input
                   className="pl-10"
                   id="email"
@@ -29,13 +68,20 @@ const Login = () => {
                   placeholder="Enter your email"
                   autoComplete="email"
                   required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
             </div>
             <div>
-              <Label htmlFor="password" className="mb-1 block">Password</Label>
+              <Label htmlFor="password" className="mb-1 block">
+                Password
+              </Label>
               <div className="relative">
-                <Key className="absolute left-3 top-2.5 text-muted-foreground" size={18} />
+                <Key
+                  className="absolute left-3 top-2.5 text-muted-foreground"
+                  size={18}
+                />
                 <Input
                   className="pl-10 pr-10"
                   id="password"
@@ -44,6 +90,8 @@ const Login = () => {
                   placeholder="Enter your password"
                   autoComplete="current-password"
                   required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
                 <button
                   type="button"
@@ -56,18 +104,28 @@ const Login = () => {
                 </button>
               </div>
             </div>
-            <Button type="submit" className="w-full gap-2">
-              <LogIn className="inline-block" size={18} />
-              Sign In
+            <Button type="submit" className="w-full gap-2" disabled={isLoading}>
+              {isLoading ? (
+                <span className="animate-spin">●</span>
+              ) : (
+                <LogIn className="inline-block" size={18} />
+              )}
+              {isLoading ? "Logging in..." : "Sign In"}
             </Button>
           </form>
           <div className="flex flex-col gap-2 text-sm text-center mt-5">
-            <Link to="/forgot-password" className="text-primary underline font-medium hover:text-primary/80 transition-colors">
+            <Link
+              to="/forgot-password"
+              className="text-primary underline font-medium hover:text-primary/80 transition-colors"
+            >
               Forgot password?
             </Link>
             <span>
               Don&apos;t have an account?{" "}
-              <Link className="text-primary underline font-medium hover:text-primary/80" to="/signup">
+              <Link
+                className="text-primary underline font-medium hover:text-primary/80"
+                to="/signup"
+              >
                 Sign Up
               </Link>
             </span>
