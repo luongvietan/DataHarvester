@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/Logo";
@@ -10,13 +10,14 @@ import { useIsMobile } from "@/hooks/use-mobile";
 const navLinks = [
   { name: "Home", href: "/" },
   { name: "Features", href: "#features" },
-  { name: "Pricing", href: "#pricing" },
-  { name: "Contact", href: "#contact" },
+  { name: "Pricing", href: "/pricing" },
+  { name: "Contact", href: "/contact" },
 ];
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const isMobile = useIsMobile();
+  const location = useLocation();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -29,15 +30,25 @@ export function Header() {
           {/* Desktop Navigation */}
           {!isMobile && (
             <nav className="hidden space-x-4 md:flex">
-              {navLinks.map((link) => (
-                <a 
-                  key={link.name} 
-                  href={link.href}
-                  className="text-sm font-medium transition-colors hover:text-primary"
-                >
-                  {link.name}
-                </a>
-              ))}
+              {navLinks.map((link) =>
+                link.href.startsWith("/") ? (
+                  <Link
+                    key={link.name}
+                    to={link.href}
+                    className={`text-sm font-medium transition-colors hover:text-primary${location.pathname === link.href ? " text-primary font-semibold" : ""}`}
+                  >
+                    {link.name}
+                  </Link>
+                ) : (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    className="text-sm font-medium transition-colors hover:text-primary"
+                  >
+                    {link.name}
+                  </a>
+                )
+              )}
             </nav>
           )}
         </div>
@@ -77,16 +88,27 @@ export function Header() {
       {isMobile && isMobileMenuOpen && (
         <div className="container md:hidden">
           <nav className="flex flex-col space-y-3 py-4">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="text-base font-medium transition-colors hover:text-primary"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {link.name}
-              </a>
-            ))}
+            {navLinks.map((link) =>
+              link.href.startsWith("/") ? (
+                <Link
+                  key={link.name}
+                  to={link.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`text-base font-medium transition-colors hover:text-primary${location.pathname === link.href ? " text-primary font-semibold" : ""}`}
+                >
+                  {link.name}
+                </Link>
+              ) : (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className="text-base font-medium transition-colors hover:text-primary"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {link.name}
+                </a>
+              )
+            )}
             <div className="flex flex-col gap-2 pt-2">
               <Button variant="outline" asChild>
                 <Link to="/login">Log In</Link>

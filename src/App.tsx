@@ -6,6 +6,12 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Dashboard from "./pages/Dashboard";
+import Contact from "./pages/Contact";
+import Pricing from "./pages/Pricing";
+import ForgotPassword from "./pages/ForgotPassword";
 
 // Scroll to top on route changes
 function ScrollToTop() {
@@ -43,10 +49,12 @@ const App = () => (
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<Index />} />
-          {/* Future routes for authentication and user dashboard */}
-          {/* <Route path="/login" element={<Login />} /> */}
-          {/* <Route path="/signup" element={<SignUp />} /> */}
-          {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
