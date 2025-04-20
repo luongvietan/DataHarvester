@@ -1,4 +1,3 @@
-
 import {
   Card,
   CardContent,
@@ -11,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Check, ShieldCheck, Star, BadgeDollarSign, Database, Wrench } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Header } from "@/components/Header";
 
 const plans = [
   {
@@ -114,72 +114,75 @@ const plans = [
 
 export default function Pricing() {
   return (
-    <main className="min-h-[80vh] flex flex-col items-center justify-center px-4 py-10 bg-background animate-fade-in">
-      <h1 className="text-3xl md:text-4xl font-bold mb-3 text-center">
-        DataHarvester Pricing Plans
-      </h1>
-      <CardDescription className="max-w-2xl mx-auto mb-10 text-center">
-        Find a plan that fits your data needs — upgrade anytime as your business grows.<br />
-        For custom requirements, please get in touch.
-      </CardDescription>
-      <section className="w-full max-w-6xl grid gap-7 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 mb-12">
-        {plans.map((plan, idx) => (
-          <Card
-            key={plan.name}
-            className={`
-              flex flex-col border
-              ${
-                plan.highlight
-                  ? "border-primary shadow-xl ring-2 ring-primary/30 scale-105 z-10"
-                  : "border-border shadow"
-              }
-              bg-card text-card-foreground relative transition-transform hover:scale-105
-            `}
-          >
-            <CardHeader className="flex flex-col items-center pb-2 pt-6">
-              <div className="mb-3">{plan.icon}</div>
-              <CardTitle className="text-xl font-bold flex items-center gap-2">
-                {plan.name}
-                {plan.highlight && (
-                  <Badge variant="default" className="ml-1 bg-primary text-primary-foreground uppercase">
-                    Best Value
-                  </Badge>
-                )}
-              </CardTitle>
-              <div className="flex items-end gap-1 mt-4 mb-2">
-                <span className="text-3xl font-semibold">{plan.price}</span>
-                {plan.period && (
-                  <span className="text-base text-muted-foreground">{plan.period}</span>
-                )}
-              </div>
-              <CardDescription className="text-center mt-2 mb-4">{plan.description}</CardDescription>
-            </CardHeader>
-            <CardContent className="grow">
-              <ul className="flex flex-col gap-2">
-                {plan.features.map((feature) => (
-                  <li key={feature} className="flex items-start gap-2 text-sm">
-                    <Check className="mt-1 text-green-500" size={16} />
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-            <CardFooter className="flex justify-center items-center pb-6 pt-2">
-              <Button
-                asChild
-                variant={plan.action.variant}
-                size="lg"
-                className={`${plan.highlight ? "bg-primary text-primary-foreground hover:bg-primary/90" : ""} w-full`}
-              >
-                <Link to={plan.action.to}>{plan.action.text}</Link>
-              </Button>
-            </CardFooter>
-          </Card>
-        ))}
-      </section>
-      <div className="text-xs text-center text-muted-foreground mb-2">
-        All prices are in USD. For more details or large-scale custom requirements, contact our sales team.
-      </div>
-    </main>
+    <div className="min-h-screen flex flex-col">
+      <Header />
+      <main className="flex flex-col items-center justify-center px-4 py-10 bg-background animate-fade-in flex-1">
+        <h1 className="text-3xl md:text-4xl font-bold mb-3 text-center">
+          DataHarvester Pricing Plans
+        </h1>
+        <CardDescription className="max-w-2xl mx-auto mb-10 text-center">
+          Find a plan that fits your data needs — upgrade anytime as your business grows.<br />
+          For custom requirements, please get in touch.
+        </CardDescription>
+        <section className="w-full max-w-6xl grid gap-7 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 mb-12">
+          {plans.map((plan, idx) => (
+            <Card
+              key={plan.name}
+              className={`
+                flex flex-col border
+                ${
+                  plan.highlight
+                    ? "border-primary shadow-xl ring-2 ring-primary/30 scale-105 z-10"
+                    : "border-border shadow"
+                }
+                bg-card text-card-foreground relative transition-transform hover:scale-105
+              `}
+            >
+              <CardHeader className="flex flex-col items-center pb-2 pt-6">
+                <div className="mb-3">{plan.icon}</div>
+                <CardTitle className="text-xl font-bold flex items-center gap-2">
+                  {plan.name}
+                  {plan.highlight && (
+                    <Badge variant="default" className="ml-1 bg-primary text-primary-foreground uppercase">
+                      Best Value
+                    </Badge>
+                  )}
+                </CardTitle>
+                <div className="flex items-end gap-1 mt-4 mb-2">
+                  <span className="text-3xl font-semibold">{plan.price}</span>
+                  {plan.period && (
+                    <span className="text-base text-muted-foreground">{plan.period}</span>
+                  )}
+                </div>
+                <CardDescription className="text-center mt-2 mb-4">{plan.description}</CardDescription>
+              </CardHeader>
+              <CardContent className="grow">
+                <ul className="flex flex-col gap-2">
+                  {plan.features.map((feature) => (
+                    <li key={feature} className="flex items-start gap-2 text-sm">
+                      <Check className="mt-1 text-green-500" size={16} />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+              <CardFooter className="flex justify-center items-center pb-6 pt-2">
+                <Button
+                  asChild
+                  variant={plan.action.variant}
+                  size="lg"
+                  className={`${plan.highlight ? "bg-primary text-primary-foreground hover:bg-primary/90" : ""} w-full`}
+                >
+                  <Link to={plan.action.to}>{plan.action.text}</Link>
+                </Button>
+              </CardFooter>
+            </Card>
+          ))}
+        </section>
+        <div className="text-xs text-center text-muted-foreground mb-2">
+          All prices are in USD. For more details or large-scale custom requirements, contact our sales team.
+        </div>
+      </main>
+    </div>
   );
 }
