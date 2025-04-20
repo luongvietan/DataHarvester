@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Check, ShieldCheck, Star, BadgeDollarSign, Database } from "lucide-react";
+import { Check, ShieldCheck, Star, BadgeDollarSign, Database, Wrench } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const plans = [
@@ -29,7 +29,7 @@ const plans = [
     action: {
       text: "Get Started",
       to: "/signup",
-      variant: "outline",
+      variant: "outline" as const,
     },
   },
   {
@@ -48,7 +48,7 @@ const plans = [
     action: {
       text: "Choose Basic",
       to: "/signup",
-      variant: "default",
+      variant: "default" as const,
     },
   },
   {
@@ -68,7 +68,7 @@ const plans = [
     action: {
       text: "Go Pro",
       to: "/signup",
-      variant: "default",
+      variant: "default" as const,
     },
   },
   {
@@ -88,7 +88,7 @@ const plans = [
     action: {
       text: "Contact Sales",
       to: "/contact",
-      variant: "default",
+      variant: "default" as const,
     },
   },
   {
@@ -107,7 +107,7 @@ const plans = [
     action: {
       text: "Request Custom",
       to: "/contact",
-      variant: "outline",
+      variant: "outline" as const,
     },
   },
 ];
