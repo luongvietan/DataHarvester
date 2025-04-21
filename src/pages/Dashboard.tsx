@@ -57,8 +57,8 @@ import { useAuth } from "@/context/AuthContext";
 import { useRealtimeTasks, Task } from "@/hooks/use-realtime-tasks";
 import { DataTable } from "@/components/DataTable";
 import { useTranslation } from "react-i18next";
+import { ReactNode } from "react";
 
-// Fake data for demonstration
 const DEMO_TASKS = [
   {
     id: "task1",
@@ -97,7 +97,6 @@ const DEMO_TASKS = [
   },
 ];
 
-// Status Badge Component
 const StatusBadge = ({ status }: { status: string }) => {
   const { t } = useTranslation();
   const variants: Record<
@@ -160,7 +159,6 @@ const Dashboard = () => {
     totalDataItems: 0,
   });
 
-  // Cập nhật thống kê khi tasks thay đổi
   useEffect(() => {
     if (tasks) {
       setStats({
@@ -169,7 +167,7 @@ const Dashboard = () => {
           .length,
         completedTasks: tasks.filter((task) => task.status === "completed")
           .length,
-        pendingRequests: 0, // Cần thêm logic cho custom requests
+        pendingRequests: 0,
         totalDataItems: tasks.reduce(
           (total, task) => total + (task.items || 0),
           0
@@ -178,14 +176,16 @@ const Dashboard = () => {
     }
   }, [tasks]);
 
-  // Get first letter of user's email for avatar
   const userInitial = user?.email ? user.email[0].toUpperCase() : "U";
 
-  // Cấu hình cột cho bảng dữ liệu
-  const columns = [
+  const columns: Array<{
+    header: string;
+    accessor: keyof Task | ((task: Task) => ReactNode);
+    id: string;
+  }> = [
     {
       header: t("table.taskName"),
-      accessor: "website",
+      accessor: "website" as keyof Task,
       id: "website",
     },
     {
@@ -278,7 +278,6 @@ const Dashboard = () => {
             </TabsList>
 
             <TabsContent value="overview">
-              {/* Summary Cards */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 <Card className="overflow-hidden border-none shadow-md hover:shadow-lg transition-shadow">
                   <div className="h-1 bg-gradient-to-r from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800"></div>
@@ -382,7 +381,6 @@ const Dashboard = () => {
                 </Card>
               </div>
 
-              {/* Quick Actions & Recent Tasks */}
               <div className="grid gap-6 md:grid-cols-7">
                 <div className="md:col-span-5">
                   <Card className="border-none shadow-md">
@@ -440,7 +438,6 @@ const Dashboard = () => {
                 </div>
 
                 <div className="md:col-span-2">
-                  {/* Quick Actions */}
                   <Card className="mb-6 border-none shadow-md hover:shadow-lg transition-shadow">
                     <CardHeader className="pb-3">
                       <CardTitle className="flex items-center text-lg">
@@ -500,7 +497,6 @@ const Dashboard = () => {
                     </CardContent>
                   </Card>
 
-                  {/* Notifications */}
                   <Card className="border-none shadow-md hover:shadow-lg transition-shadow">
                     <CardHeader className="pb-3">
                       <CardTitle className="flex items-center text-lg">
@@ -646,7 +642,6 @@ const Dashboard = () => {
   );
 };
 
-// Component hiển thị trạng thái task
 const TaskStatusBadge = ({ status }: { status: Task["status"] }) => {
   const { t } = useTranslation();
   const variants: Record<

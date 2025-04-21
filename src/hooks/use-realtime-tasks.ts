@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { db } from "@/lib/firebase";
 import {
@@ -7,6 +8,7 @@ import {
   onSnapshot,
   doc,
   updateDoc,
+  Timestamp,
 } from "firebase/firestore";
 import { useToast } from "@/components/ui/use-toast";
 import { useApiError } from "./use-api-error";
@@ -51,20 +53,24 @@ export function useRealtimeTasks(userId: string | undefined) {
         const newCompletedTasks: Task[] = [];
 
         snapshot.forEach((doc) => {
-          const taskData = doc.data() as Omit<Task, "id">;
+          const taskData = doc.data();
           const task = {
             id: doc.id,
             ...taskData,
             createdAt:
               taskData.createdAt instanceof Date
                 ? taskData.createdAt
-                : new Date(taskData.createdAt.seconds * 1000),
+                : taskData.createdAt instanceof Timestamp
+                ? new Date(taskData.createdAt.seconds * 1000)
+                : new Date(),
             completedAt: taskData.completedAt
               ? taskData.completedAt instanceof Date
                 ? taskData.completedAt
-                : new Date(taskData.completedAt.seconds * 1000)
+                : taskData.completedAt instanceof Timestamp
+                ? new Date(taskData.completedAt.seconds * 1000)
+                : undefined
               : undefined,
-          };
+          } as Task;
 
           updatedTasks.push(task);
 
