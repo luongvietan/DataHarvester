@@ -21,7 +21,7 @@ const languages: Language[] = [
 ];
 
 export function LanguageSwitcher() {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const [currentLanguage, setCurrentLanguage] = useState<Language | null>(null);
 
   useEffect(() => {
@@ -42,10 +42,10 @@ export function LanguageSwitcher() {
           variant="ghost"
           size="icon"
           className="focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-          aria-label="Chọn ngôn ngữ"
+          aria-label={t("common.selectLanguage")}
         >
           <Globe className="h-5 w-5" />
-          <span className="sr-only">Chọn ngôn ngữ</span>
+          <span className="sr-only">{t("common.selectLanguage")}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">

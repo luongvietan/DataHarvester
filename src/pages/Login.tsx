@@ -8,6 +8,7 @@ import { useState, FormEvent } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useToast } from "@/components/ui/use-toast";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { useTranslation } from "react-i18next";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -18,6 +19,7 @@ const Login = () => {
   const { signIn } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -34,16 +36,16 @@ const Login = () => {
       }
 
       toast({
-        title: "Đăng nhập thành công",
-        description: "Bạn đang được chuyển hướng đến bảng điều khiển.",
+        title: t("auth.loginSuccess"),
+        description: t("auth.loginSuccessDesc"),
       });
       navigate("/dashboard");
     } catch (error: unknown) {
       const authError = error as { message?: string; code?: string };
-      let errorMessage = "Vui lòng kiểm tra thông tin đăng nhập và thử lại.";
+      let errorMessage = t("errors.general");
 
       if (authError.code === "auth/wrong-password") {
-        errorMessage = "Sai mật khẩu. Vui lòng thử lại.";
+        errorMessage = t("errors.auth.wrongPassword");
       } else if (authError.code === "auth/user-not-found") {
         errorMessage = "Không tìm thấy tài khoản với email này.";
       } else if (authError.code === "auth/too-many-requests") {
@@ -53,7 +55,7 @@ const Login = () => {
       }
 
       toast({
-        title: "Đăng nhập thất bại",
+        title: t("auth.loginFailed"),
         description: errorMessage,
         variant: "destructive",
       });
@@ -67,7 +69,7 @@ const Login = () => {
       <Header />
       <main className="flex-1 flex flex-col items-center justify-center px-4 py-8 animate-fade-in">
         <h1 className="text-3xl font-bold mb-4 text-center text-primary">
-          Đăng nhập vào DataHarvester
+          {t("login.title")}
         </h1>
 
         <div className="w-full max-w-sm p-8 rounded-2xl bg-gradient-to-br from-card/80 via-secondary/70 to-background/70 shadow-xl glass-morphism border border-border">
@@ -75,8 +77,7 @@ const Login = () => {
             <Alert variant="warning" className="mb-6">
               <AlertCircle className="h-4 w-4" />
               <AlertDescription>
-                Vui lòng xác thực email của bạn trước khi đăng nhập. Kiểm tra
-                hộp thư đến của bạn.
+                {t("auth.emailVerificationRequired")}
               </AlertDescription>
             </Alert>
           )}
@@ -84,7 +85,7 @@ const Login = () => {
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <Label htmlFor="email" className="mb-1 block">
-                Email
+                {t("login.email")}
               </Label>
               <div className="relative">
                 <Mail
@@ -96,7 +97,7 @@ const Login = () => {
                   id="email"
                   name="email"
                   type="email"
-                  placeholder="Nhập email của bạn"
+                  placeholder={t("login.emailPlaceholder")}
                   autoComplete="email"
                   required
                   value={email}
@@ -106,7 +107,7 @@ const Login = () => {
             </div>
             <div>
               <Label htmlFor="password" className="mb-1 block">
-                Mật khẩu
+                {t("login.password")}
               </Label>
               <div className="relative">
                 <Key
@@ -118,7 +119,7 @@ const Login = () => {
                   id="password"
                   name="password"
                   type={showPassword ? "text" : "password"}
-                  placeholder="Nhập mật khẩu của bạn"
+                  placeholder={t("login.passwordPlaceholder")}
                   autoComplete="current-password"
                   required
                   value={password}
@@ -129,7 +130,11 @@ const Login = () => {
                   tabIndex={-1}
                   onClick={() => setShowPassword((s) => !s)}
                   className="absolute right-3 top-2.5 text-muted-foreground"
-                  aria-label={showPassword ? "Ẩn mật khẩu" : "Hiện mật khẩu"}
+                  aria-label={
+                    showPassword
+                      ? t("login.hidePassword")
+                      : t("login.showPassword")
+                  }
                 >
                   {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
@@ -141,7 +146,7 @@ const Login = () => {
               ) : (
                 <LogIn className="inline-block" size={18} />
               )}
-              {isLoading ? "Đang đăng nhập..." : "Đăng nhập"}
+              {isLoading ? t("login.loading") : t("login.submit")}
             </Button>
           </form>
           <div className="flex flex-col gap-2 text-sm text-center mt-5">
@@ -149,15 +154,15 @@ const Login = () => {
               to="/forgot-password"
               className="text-primary underline font-medium hover:text-primary/80 transition-colors"
             >
-              Quên mật khẩu?
+              {t("login.forgotPassword")}
             </Link>
             <span>
-              Chưa có tài khoản?{" "}
+              {t("login.noAccount")}{" "}
               <Link
                 className="text-primary underline font-medium hover:text-primary/80"
                 to="/signup"
               >
-                Đăng ký
+                {t("auth.signup")}
               </Link>
             </span>
           </div>

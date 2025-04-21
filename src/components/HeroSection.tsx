@@ -1,30 +1,32 @@
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export function HeroSection() {
+  const { t } = useTranslation();
+
   return (
     <section className="py-20 px-4 md:px-6 lg:px-8">
       <div className="container flex flex-col items-center text-center">
         <div className="space-y-4 max-w-4xl">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
-            Harvest Data Effortlessly with{" "}
-            <span className="text-primary">DataHarvester</span>
+            {t("hero.title", {
+              appName: <span className="text-primary">DataHarvester</span>,
+            })}
           </h1>
           <p className="text-lg md:text-xl max-w-3xl mx-auto text-muted-foreground">
-            Scrape data from popular websites or request custom solutions with
-            ease. Transform your data collection process with our powerful,
-            user-friendly platform.
+            {t("hero.subtitle")}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
             <Button size="lg" asChild>
               <Link to="/signup">
-                Get Started
+                {t("hero.getStarted")}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
             <Button size="lg" variant="outline" asChild>
-              <a href="/features">Learn More</a>
+              <a href="/features">{t("hero.learnMore")}</a>
             </Button>
           </div>
         </div>

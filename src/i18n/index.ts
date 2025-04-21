@@ -12,6 +12,118 @@ const resources = {
       "app.tagline": "Thu thập dữ liệu dễ dàng và hiệu quả",
       "theme.dark": "Chế độ tối",
       "theme.light": "Chế độ sáng",
+      "common.selectLanguage": "Chọn ngôn ngữ",
+
+      // Login
+      "login.title": "Đăng nhập vào DataHarvester",
+      "login.email": "Email",
+      "login.password": "Mật khẩu",
+      "login.emailPlaceholder": "Nhập email của bạn",
+      "login.passwordPlaceholder": "Nhập mật khẩu của bạn",
+      "login.submit": "Đăng nhập",
+      "login.loading": "Đang đăng nhập...",
+      "login.forgotPassword": "Quên mật khẩu?",
+      "login.noAccount": "Chưa có tài khoản?",
+      "login.showPassword": "Hiện mật khẩu",
+      "login.hidePassword": "Ẩn mật khẩu",
+
+      // Signup
+      "signup.title": "Tạo tài khoản DataHarvester",
+      "signup.name": "Họ tên",
+      "signup.email": "Email",
+      "signup.password": "Mật khẩu",
+      "signup.confirmPassword": "Xác nhận mật khẩu",
+      "signup.namePlaceholder": "Nhập họ tên của bạn",
+      "signup.emailPlaceholder": "Nhập email của bạn",
+      "signup.passwordPlaceholder": "Tạo mật khẩu",
+      "signup.confirmPasswordPlaceholder": "Nhập lại mật khẩu",
+      "signup.submit": "Đăng ký",
+      "signup.loading": "Đang xử lý...",
+      "signup.haveAccount": "Đã có tài khoản?",
+      "signup.verifyTitle": "Xác thực email của bạn",
+      "signup.verifyDesc":
+        "Chúng tôi đã gửi một email xác thực đến {email}. Vui lòng kiểm tra hộp thư đến của bạn và nhấp vào liên kết để xác thực tài khoản của bạn.",
+      "signup.didntReceive": "Không nhận được email?",
+      "signup.resendEmail": "gửi lại email xác thực",
+      "signup.backToSignup": "Quay lại đăng ký",
+      "signup.goToLogin": "Đi đến đăng nhập",
+
+      // Hero Section (Home)
+      "hero.title": "Thu thập dữ liệu dễ dàng với DataHarvester",
+      "hero.subtitle":
+        "Thu thập dữ liệu từ các trang web phổ biến hoặc yêu cầu giải pháp tùy chỉnh một cách dễ dàng. Chuyển đổi quy trình thu thập dữ liệu của bạn với nền tảng mạnh mẽ, thân thiện với người dùng của chúng tôi.",
+      "hero.getStarted": "Bắt đầu ngay",
+      "hero.learnMore": "Tìm hiểu thêm",
+
+      // Features Section
+      "features.title": "Tính năng mạnh mẽ cho thu thập dữ liệu",
+      "features.subtitle":
+        "DataHarvester cung cấp tất cả các công cụ bạn cần để thu thập và quản lý dữ liệu từ khắp web một cách hiệu quả.",
+
+      "features.prebuilt.title": "Bộ thu thập dữ liệu có sẵn",
+      "features.prebuilt.desc":
+        "Các công cụ thu thập dữ liệu sẵn sàng sử dụng cho các trang web phổ biến bao gồm Amazon, eBay, LinkedIn và nhiều hơn nữa.",
+
+      "features.custom.title": "Yêu cầu thu thập tùy chỉnh",
+      "features.custom.desc":
+        "Cần giải pháp chuyên biệt? Gửi yêu cầu và đội ngũ của chúng tôi sẽ xây dựng công cụ thu thập dữ liệu tùy chỉnh cho bạn.",
+
+      "features.export.title": "Nhiều định dạng xuất",
+      "features.export.desc":
+        "Tải xuống dữ liệu của bạn dưới dạng CSV, JSON hoặc Excel để tích hợp liền mạch với quy trình làm việc của bạn.",
+
+      "features.dashboard.title": "Bảng điều khiển thân thiện",
+      "features.dashboard.desc":
+        "Giám sát và quản lý tất cả các nhiệm vụ thu thập dữ liệu của bạn từ một giao diện trực quan.",
+
+      "features.docs.title": "Tài liệu chi tiết",
+      "features.docs.desc":
+        "Hướng dẫn toàn diện và tài liệu API để giúp bạn tận dụng tối đa DataHarvester.",
+
+      "features.bulk.title": "Tải xuống hàng loạt",
+      "features.bulk.desc":
+        "Tải xuống hiệu quả các bộ dữ liệu lớn với tính năng tải xuống hàng loạt tối ưu của chúng tôi.",
+
+      // Contact page
+      "contact.title": "Liên hệ với chúng tôi",
+      "contact.subtitle":
+        "Có câu hỏi về DataHarvester? Liên hệ với đội ngũ của chúng tôi.",
+      "contact.form.title": "Biểu mẫu liên hệ",
+      "contact.form.desc":
+        "Điền vào biểu mẫu dưới đây để liên hệ với đội ngũ của chúng tôi",
+      "contact.name": "Tên",
+      "contact.email": "Email",
+      "contact.subject": "Chủ đề",
+      "contact.message": "Tin nhắn",
+      "contact.namePlaceholder": "Tên của bạn",
+      "contact.emailPlaceholder": "email.cua.ban@example.com",
+      "contact.subjectPlaceholder": "Tin nhắn của bạn về gì?",
+      "contact.messagePlaceholder": "Chúng tôi có thể giúp gì cho bạn?",
+      "contact.required": "*",
+      "contact.submit": "Gửi tin nhắn",
+      "contact.sending": "Đang gửi...",
+      "contact.error": "Lỗi",
+
+      "contact.success.title": "Tin nhắn đã được gửi thành công",
+      "contact.success.desc":
+        "Cảm ơn bạn đã liên hệ với chúng tôi. Chúng tôi sẽ sớm phản hồi.",
+      "contact.success.detail":
+        "Đội ngũ của chúng tôi thường phản hồi trong vòng 24-48 giờ trong ngày làm việc.",
+      "contact.success.whatsNext": "Tiếp theo là gì?",
+      "contact.success.whatsNextDesc":
+        "Bạn sẽ nhận được email xác nhận ngay. Nếu yêu cầu của bạn khẩn cấp, vui lòng gửi email trực tiếp cho chúng tôi theo địa chỉ support@dataharvester.com.",
+      "contact.success.sendAnother": "Gửi tin nhắn khác",
+
+      "contact.emailUs": "Gửi email cho chúng tôi",
+      "contact.generalInquiries": "Thông tin chung",
+      "contact.emailSupport": "Email: support@dataharvester.com",
+
+      // 404
+      "notFound.title": "404",
+      "notFound.heading": "Không tìm thấy trang",
+      "notFound.message":
+        "Trang bạn đang tìm kiếm không tồn tại hoặc đã được di chuyển.",
+      "notFound.returnHome": "Quay về Trang chủ",
 
       // Đăng nhập/đăng ký
       "auth.login": "Đăng nhập",
@@ -79,7 +191,6 @@ const resources = {
       "home.hero.learnMore": "Tìm hiểu thêm",
 
       // Tính năng
-      "features.title": "Tính năng nổi bật",
       "features.prebuilt.title": "Các công cụ thu thập dữ liệu có sẵn",
       "features.prebuilt.desc":
         "Sử dụng các công cụ thu thập dữ liệu cho các trang web phổ biến",
@@ -191,20 +302,133 @@ const resources = {
       "app.tagline": "Harvest data effortlessly",
       "theme.dark": "Dark mode",
       "theme.light": "Light mode",
+      "common.selectLanguage": "Select language",
 
-      // Auth
-      "auth.login": "Log In",
-      "auth.signup": "Sign Up",
-      "auth.logout": "Log Out",
-      "auth.forgotPassword": "Forgot Password",
+      // Login
+      "login.title": "Log in to DataHarvester",
+      "login.email": "Email",
+      "login.password": "Password",
+      "login.emailPlaceholder": "Enter your email",
+      "login.passwordPlaceholder": "Enter your password",
+      "login.submit": "Log in",
+      "login.loading": "Logging in...",
+      "login.forgotPassword": "Forgot password?",
+      "login.noAccount": "Don't have an account?",
+      "login.showPassword": "Show password",
+      "login.hidePassword": "Hide password",
+
+      // Signup
+      "signup.title": "Create a DataHarvester account",
+      "signup.name": "Full name",
+      "signup.email": "Email",
+      "signup.password": "Password",
+      "signup.confirmPassword": "Confirm password",
+      "signup.namePlaceholder": "Enter your full name",
+      "signup.emailPlaceholder": "Enter your email",
+      "signup.passwordPlaceholder": "Create a password",
+      "signup.confirmPasswordPlaceholder": "Confirm your password",
+      "signup.submit": "Sign up",
+      "signup.loading": "Processing...",
+      "signup.haveAccount": "Already have an account?",
+      "signup.verifyTitle": "Verify your email",
+      "signup.verifyDesc":
+        "We've sent a verification email to {email}. Please check your inbox and click the link to verify your account.",
+      "signup.didntReceive": "Didn't receive the email?",
+      "signup.resendEmail": "resend verification email",
+      "signup.backToSignup": "Back to sign up",
+      "signup.goToLogin": "Go to login",
+
+      // Hero Section (Home)
+      "hero.title": "Harvest Data Effortlessly with {appName}",
+      "hero.subtitle":
+        "Scrape data from popular websites or request custom solutions with ease. Transform your data collection process with our powerful, user-friendly platform.",
+      "hero.getStarted": "Get Started",
+      "hero.learnMore": "Learn More",
+
+      // Features Section
+      "features.title": "Powerful Features for Data Collection",
+      "features.subtitle":
+        "DataHarvester provides all the tools you need to efficiently gather and manage data from across the web.",
+
+      "features.prebuilt.title": "Pre-built Scrapers",
+      "features.prebuilt.desc":
+        "Ready-to-use scrapers for popular websites including Amazon, eBay, LinkedIn, and more.",
+
+      "features.custom.title": "Custom Scraping Requests",
+      "features.custom.desc":
+        "Need a specialized solution? Submit a request and our team will build a custom scraper for you.",
+
+      "features.export.title": "Multiple Export Formats",
+      "features.export.desc":
+        "Download your data in CSV, JSON, or Excel formats to seamlessly integrate with your workflows.",
+
+      "features.dashboard.title": "User-friendly Dashboard",
+      "features.dashboard.desc":
+        "Monitor and manage all your scraping tasks from one intuitive interface.",
+
+      "features.docs.title": "Detailed Documentation",
+      "features.docs.desc":
+        "Comprehensive guides and API documentation to help you get the most out of DataHarvester.",
+
+      "features.bulk.title": "Bulk Downloads",
+      "features.bulk.desc":
+        "Efficiently download large datasets with our optimized bulk download feature.",
+
+      // Contact page
+      "contact.title": "Contact Us",
+      "contact.subtitle":
+        "Have questions about DataHarvester? Get in touch with our team.",
+      "contact.form.title": "Contact Form",
+      "contact.form.desc":
+        "Fill out the form below to get in touch with our team",
+      "contact.name": "Name",
+      "contact.email": "Email",
+      "contact.subject": "Subject",
+      "contact.message": "Message",
+      "contact.namePlaceholder": "Your name",
+      "contact.emailPlaceholder": "your.email@example.com",
+      "contact.subjectPlaceholder": "What's your message about?",
+      "contact.messagePlaceholder": "How can we help you?",
+      "contact.required": "*",
+      "contact.submit": "Send Message",
+      "contact.sending": "Sending...",
+      "contact.error": "Error",
+
+      "contact.success.title": "Message Sent Successfully",
+      "contact.success.desc":
+        "Thank you for contacting us. We'll respond to your inquiry soon.",
+      "contact.success.detail":
+        "Our team typically responds within 24-48 hours during business days.",
+      "contact.success.whatsNext": "What's next?",
+      "contact.success.whatsNextDesc":
+        "You'll receive a confirmation email shortly. If your inquiry is urgent, please email us directly at support@dataharvester.com.",
+      "contact.success.sendAnother": "Send Another Message",
+
+      "contact.emailUs": "Email Us",
+      "contact.generalInquiries": "General Inquiries",
+      "contact.emailSupport": "Email: support@dataharvester.com",
+
+      // 404
+      "notFound.title": "404",
+      "notFound.heading": "Page Not Found",
+      "notFound.message":
+        "The page you are looking for doesn't exist or has been moved.",
+      "notFound.returnHome": "Return to Home",
+
+      // Đăng nhập/đăng ký
+      "auth.login": "Đăng nhập",
+      "auth.signup": "Đăng ký",
+      "auth.logout": "Đăng xuất",
+      "auth.forgotPassword": "Quên mật khẩu",
       "auth.email": "Email",
-      "auth.password": "Password",
-      "auth.confirmPassword": "Confirm Password",
-      "auth.name": "Full Name",
-      "auth.loginSuccess": "Login Successful",
-      "auth.loginSuccessDesc": "You are being redirected to the dashboard.",
-      "auth.loginFailed": "Login Failed",
-      "auth.signupSuccess": "Sign Up Successful",
+      "auth.password": "Mật khẩu",
+      "auth.confirmPassword": "Xác nhận mật khẩu",
+      "auth.name": "Họ tên",
+      "auth.loginSuccess": "Đăng nhập thành công",
+      "auth.loginSuccessDesc":
+        "Bạn đang được chuyển hướng đến bảng điều khiển.",
+      "auth.loginFailed": "Đăng nhập thất bại",
+      "auth.signupSuccess": "Đăng ký thành công",
       "auth.signupSuccessDesc":
         "A verification email has been sent to your email address.",
       "auth.signupFailed": "Sign Up Failed",
@@ -248,15 +472,14 @@ const resources = {
       "nav.profile": "Profile",
       "nav.scraper": "Data Scraper",
 
-      // Home
+      // Trang chủ
       "home.hero.title": "Harvest Data Effortlessly with DataHarvester",
       "home.hero.subtitle":
         "Scrape data from popular websites or request custom solutions with ease.",
       "home.hero.getStarted": "Get Started",
       "home.hero.learnMore": "Learn More",
 
-      // Features
-      "features.title": "Key Features",
+      // Tính năng
       "features.prebuilt.title": "Pre-built Scrapers",
       "features.prebuilt.desc": "Use ready-made scrapers for popular websites",
       "features.custom.title": "Custom Requests",

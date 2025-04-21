@@ -8,7 +8,14 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Check, ShieldCheck, Star, BadgeDollarSign, Database, Wrench } from "lucide-react";
+import {
+  Check,
+  ShieldCheck,
+  Star,
+  BadgeDollarSign,
+  Database,
+  Wrench,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 import { Header } from "@/components/Header";
 
@@ -17,7 +24,8 @@ const plans = [
     name: "Free",
     price: "$0",
     period: "/month",
-    description: "Limited access to built-in scrapers. Cap on requests and data export.",
+    description:
+      "Limited access to built-in scrapers. Cap on requests and data export.",
     features: [
       "Access to selected pre-built scrapers",
       "Limited monthly requests or data rows",
@@ -55,7 +63,8 @@ const plans = [
     name: "Pro",
     price: "$50–$100",
     period: "/month",
-    description: "All Basic features, add limited custom crawler tasks & priority support.",
+    description:
+      "All Basic features, add limited custom crawler tasks & priority support.",
     features: [
       "All Basic features",
       "Limited custom crawl requests",
@@ -75,7 +84,8 @@ const plans = [
     name: "Enterprise",
     price: "Custom",
     period: "",
-    description: "Tailored solutions & support for enterprise-scale and integrations.",
+    description:
+      "Tailored solutions & support for enterprise-scale and integrations.",
     features: [
       "Unlimited large-scale crawling",
       "Dedicated infrastructure & SLAs",
@@ -95,7 +105,8 @@ const plans = [
     name: "Custom Crawler",
     price: "$50–$100",
     period: "/scraper",
-    description: "Build one-off scrapers for unsupported websites, priced by site complexity.",
+    description:
+      "Build one-off scrapers for unsupported websites, priced by site complexity.",
     features: [
       "Custom scraper development",
       "Anti-crawl/complex structure supported",
@@ -121,7 +132,9 @@ export default function Pricing() {
           DataHarvester Pricing Plans
         </h1>
         <CardDescription className="max-w-2xl mx-auto mb-10 text-center">
-          Find a plan that fits your data needs — upgrade anytime as your business grows.<br />
+          Find a plan that fits your data needs — upgrade anytime as your
+          business grows.
+          <br />
           For custom requirements, please get in touch.
         </CardDescription>
         <section className="w-full max-w-6xl grid gap-7 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 mb-12">
@@ -143,7 +156,10 @@ export default function Pricing() {
                 <CardTitle className="text-xl font-bold flex items-center gap-2">
                   {plan.name}
                   {plan.highlight && (
-                    <Badge variant="default" className="ml-1 bg-primary text-primary-foreground uppercase">
+                    <Badge
+                      variant="default"
+                      className="ml-1 bg-primary text-primary-foreground uppercase"
+                    >
                       Best Value
                     </Badge>
                   )}
@@ -151,15 +167,22 @@ export default function Pricing() {
                 <div className="flex items-end gap-1 mt-4 mb-2">
                   <span className="text-3xl font-semibold">{plan.price}</span>
                   {plan.period && (
-                    <span className="text-base text-muted-foreground">{plan.period}</span>
+                    <span className="text-base text-muted-foreground">
+                      {plan.period}
+                    </span>
                   )}
                 </div>
-                <CardDescription className="text-center mt-2 mb-4">{plan.description}</CardDescription>
+                <CardDescription className="text-center mt-2 mb-4">
+                  {plan.description}
+                </CardDescription>
               </CardHeader>
               <CardContent className="grow">
                 <ul className="flex flex-col gap-2">
                   {plan.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-2 text-sm">
+                    <li
+                      key={feature}
+                      className="flex items-start gap-2 text-sm"
+                    >
                       <Check className="mt-1 text-green-500" size={16} />
                       <span>{feature}</span>
                     </li>
@@ -171,7 +194,11 @@ export default function Pricing() {
                   asChild
                   variant={plan.action.variant}
                   size="lg"
-                  className={`${plan.highlight ? "bg-primary text-primary-foreground hover:bg-primary/90" : ""} w-full`}
+                  className={`${
+                    plan.highlight
+                      ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                      : ""
+                  } w-full`}
                 >
                   <Link to={plan.action.to}>{plan.action.text}</Link>
                 </Button>
@@ -180,7 +207,8 @@ export default function Pricing() {
           ))}
         </section>
         <div className="text-xs text-center text-muted-foreground mb-2">
-          All prices are in USD. For more details or large-scale custom requirements, contact our sales team.
+          All prices are in USD. For more details or large-scale custom
+          requirements, contact our sales team.
         </div>
       </main>
     </div>

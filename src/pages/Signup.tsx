@@ -8,6 +8,7 @@ import { useState, FormEvent } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useToast } from "@/components/ui/use-toast";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { useTranslation } from "react-i18next";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -21,14 +22,15 @@ const Signup = () => {
   const { signUp } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
       toast({
-        title: "Mật khẩu không khớp",
-        description: "Vui lòng kiểm tra mật khẩu xác nhận của bạn.",
+        title: t("auth.passwordsDontMatch"),
+        description: t("auth.passwordsDontMatchDesc"),
         variant: "destructive",
       });
       return;
@@ -40,16 +42,14 @@ const Signup = () => {
       await signUp(email, password, name);
       setVerificationSent(true);
       toast({
-        title: "Đăng ký thành công",
-        description:
-          "Một email xác thực đã được gửi đến địa chỉ email của bạn.",
+        title: t("auth.signupSuccess"),
+        description: t("auth.signupSuccessDesc"),
       });
     } catch (error: unknown) {
       const authError = error as { message?: string };
       toast({
-        title: "Đăng ký thất bại",
-        description:
-          authError.message || "Đã xảy ra lỗi khi tạo tài khoản của bạn.",
+        title: t("auth.signupFailed"),
+        description: authError.message || t("errors.general"),
         variant: "destructive",
       });
     } finally {
@@ -67,37 +67,35 @@ const Signup = () => {
               <div className="p-3 rounded-full bg-primary/10">
                 <Mail className="h-6 w-6 text-primary" />
               </div>
-              <h1 className="text-2xl font-bold">Xác thực email của bạn</h1>
+              <h1 className="text-2xl font-bold">{t("signup.verifyTitle")}</h1>
               <p className="text-muted-foreground">
-                Chúng tôi đã gửi một email xác thực đến {email}. Vui lòng kiểm
-                tra hộp thư đến của bạn và nhấp vào liên kết để xác thực tài
-                khoản của bạn.
+                {t("signup.verifyDesc", { email })}
               </p>
 
               <Alert className="mt-4">
                 <AlertCircle className="h-4 w-4" />
-                <AlertTitle>Không nhận được email?</AlertTitle>
+                <AlertTitle>{t("signup.didntReceive")}</AlertTitle>
                 <AlertDescription>
-                  Kiểm tra thư mục spam của bạn hoặc{" "}
+                  {t("errors.general")}{" "}
                   <button
                     onClick={async () => {
                       try {
                         await signUp(email, password, name);
                         toast({
-                          title: "Email đã được gửi lại",
-                          description: "Vui lòng kiểm tra hộp thư đến của bạn.",
+                          title: t("auth.emailResent"),
+                          description: t("auth.emailResentDesc"),
                         });
                       } catch (error) {
                         toast({
-                          title: "Không thể gửi lại email",
-                          description: "Vui lòng thử lại sau.",
+                          title: t("auth.emailNotResent"),
+                          description: t("auth.emailNotResentDesc"),
                           variant: "destructive",
                         });
                       }
                     }}
                     className="font-medium underline hover:text-primary"
                   >
-                    gửi lại email xác thực
+                    {t("signup.resendEmail")}
                   </button>
                 </AlertDescription>
               </Alert>
@@ -113,10 +111,10 @@ const Signup = () => {
                     setName("");
                   }}
                 >
-                  Quay lại đăng ký
+                  {t("signup.backToSignup")}
                 </Button>
                 <Button onClick={() => navigate("/login")}>
-                  Đi đến đăng nhập
+                  {t("signup.goToLogin")}
                 </Button>
               </div>
             </div>
@@ -131,13 +129,13 @@ const Signup = () => {
       <Header />
       <main className="flex-1 flex flex-col items-center justify-center px-4 py-8 animate-fade-in">
         <h1 className="text-3xl font-bold mb-4 text-center text-primary">
-          Tạo tài khoản DataHarvester
+          {t("signup.title")}
         </h1>
         <div className="w-full max-w-sm p-8 rounded-2xl bg-gradient-to-br from-card/80 via-secondary/70 to-background/70 shadow-xl glass-morphism border border-border">
           <form className="space-y-5" onSubmit={handleSubmit}>
             <div>
               <Label htmlFor="name" className="mb-1 block">
-                Họ tên
+                {t("signup.name")}
               </Label>
               <div className="relative">
                 <User
@@ -149,7 +147,7 @@ const Signup = () => {
                   id="name"
                   name="name"
                   type="text"
-                  placeholder="Nhập họ tên của bạn"
+                  placeholder={t("signup.namePlaceholder")}
                   autoComplete="name"
                   required
                   value={name}
@@ -159,7 +157,7 @@ const Signup = () => {
             </div>
             <div>
               <Label htmlFor="email" className="mb-1 block">
-                Email
+                {t("signup.email")}
               </Label>
               <div className="relative">
                 <Mail
@@ -171,7 +169,7 @@ const Signup = () => {
                   id="email"
                   name="email"
                   type="email"
-                  placeholder="Nhập email của bạn"
+                  placeholder={t("signup.emailPlaceholder")}
                   autoComplete="email"
                   required
                   value={email}
@@ -181,7 +179,7 @@ const Signup = () => {
             </div>
             <div>
               <Label htmlFor="password" className="mb-1 block">
-                Mật khẩu
+                {t("signup.password")}
               </Label>
               <div className="relative">
                 <Key
@@ -193,7 +191,7 @@ const Signup = () => {
                   id="password"
                   name="password"
                   type={showPassword ? "text" : "password"}
-                  placeholder="Tạo mật khẩu"
+                  placeholder={t("signup.passwordPlaceholder")}
                   autoComplete="new-password"
                   required
                   value={password}
@@ -204,7 +202,11 @@ const Signup = () => {
                   tabIndex={-1}
                   onClick={() => setShowPassword((s) => !s)}
                   className="absolute right-3 top-2.5 text-muted-foreground"
-                  aria-label={showPassword ? "Ẩn mật khẩu" : "Hiện mật khẩu"}
+                  aria-label={
+                    showPassword
+                      ? t("login.hidePassword")
+                      : t("login.showPassword")
+                  }
                 >
                   {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
@@ -212,7 +214,7 @@ const Signup = () => {
             </div>
             <div>
               <Label htmlFor="confirm_password" className="mb-1 block">
-                Xác nhận mật khẩu
+                {t("signup.confirmPassword")}
               </Label>
               <div className="relative">
                 <Key
@@ -224,7 +226,7 @@ const Signup = () => {
                   id="confirm_password"
                   name="confirm_password"
                   type={showConfirm ? "text" : "password"}
-                  placeholder="Nhập lại mật khẩu"
+                  placeholder={t("signup.confirmPasswordPlaceholder")}
                   autoComplete="new-password"
                   required
                   value={confirmPassword}
@@ -235,23 +237,27 @@ const Signup = () => {
                   tabIndex={-1}
                   onClick={() => setShowConfirm((s) => !s)}
                   className="absolute right-3 top-2.5 text-muted-foreground"
-                  aria-label={showConfirm ? "Ẩn mật khẩu" : "Hiện mật khẩu"}
+                  aria-label={
+                    showConfirm
+                      ? t("login.hidePassword")
+                      : t("login.showPassword")
+                  }
                 >
                   {showConfirm ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
               </div>
             </div>
             <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? "Đang xử lý..." : "Đăng ký"}
+              {isLoading ? t("signup.loading") : t("signup.submit")}
             </Button>
           </form>
           <div className="text-sm text-center mt-5">
-            Đã có tài khoản?{" "}
+            {t("signup.haveAccount")}{" "}
             <Link
+              className="text-primary underline hover:text-primary/80"
               to="/login"
-              className="text-primary underline font-medium hover:text-primary/80"
             >
-              Đăng nhập
+              {t("auth.login")}
             </Link>
           </div>
         </div>

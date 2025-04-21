@@ -1,9 +1,11 @@
 import { Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next";
 
 export function ThemeToggle() {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
+  const { t } = useTranslation();
 
   // Kiểm tra theme hiện tại khi component mount
   useEffect(() => {
@@ -33,10 +35,8 @@ export function ThemeToggle() {
       variant="ghost"
       size="icon"
       onClick={toggleTheme}
-      aria-label={
-        isDarkTheme ? "Chuyển sang chế độ sáng" : "Chuyển sang chế độ tối"
-      }
-      title={isDarkTheme ? "Chuyển sang chế độ sáng" : "Chuyển sang chế độ tối"}
+      aria-label={isDarkTheme ? t("theme.light") : t("theme.dark")}
+      title={isDarkTheme ? t("theme.light") : t("theme.dark")}
       className="focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
     >
       {isDarkTheme ? (
@@ -45,7 +45,7 @@ export function ThemeToggle() {
         <Moon className="h-5 w-5" aria-hidden="true" />
       )}
       <span className="sr-only">
-        {isDarkTheme ? "Chuyển sang chế độ sáng" : "Chuyển sang chế độ tối"}
+        {isDarkTheme ? t("theme.light") : t("theme.dark")}
       </span>
     </Button>
   );

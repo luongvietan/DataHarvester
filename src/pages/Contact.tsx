@@ -24,10 +24,12 @@ import {
 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { useFirebaseAuth } from "@/hooks/use-firebase-auth";
+import { useTranslation } from "react-i18next";
 
 const Contact = () => {
   const { user } = useFirebaseAuth();
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   const [formData, setFormData] = useState({
     name: user?.displayName || "",
@@ -55,17 +57,17 @@ const Contact = () => {
 
     // Validate inputs
     if (!formData.name.trim()) {
-      setError("Please enter your name.");
+      setError(t("contact.name") + " " + t("contact.required"));
       return;
     }
 
     if (!formData.email.trim()) {
-      setError("Please enter your email address.");
+      setError(t("contact.email") + " " + t("contact.required"));
       return;
     }
 
     if (!formData.message.trim()) {
-      setError("Please enter your message.");
+      setError(t("contact.message") + " " + t("contact.required"));
       return;
     }
 
@@ -79,16 +81,16 @@ const Contact = () => {
       setSuccess(true);
 
       toast({
-        title: "Message sent successfully",
-        description: "We'll get back to you as soon as possible.",
+        title: t("contact.success.title"),
+        description: t("contact.success.desc"),
       });
     } catch (err) {
       console.error("Error sending message:", err);
-      setError("Failed to send message. Please try again later.");
+      setError(t("errors.general"));
 
       toast({
-        title: "Error sending message",
-        description: "Please try again later.",
+        title: t("contact.error"),
+        description: t("errors.general"),
         variant: "destructive",
       });
     } finally {
@@ -101,58 +103,49 @@ const Contact = () => {
       <Header />
       <main className="flex-1 container mx-auto px-4 py-8 animate-fade-in">
         <div className="max-w-3xl mx-auto">
-          <h1 className="text-3xl font-bold mb-2">Contact Us</h1>
-          <p className="text-muted-foreground mb-8">
-            Have questions about DataHarvester? Get in touch with our team.
-          </p>
+          <h1 className="text-3xl font-bold mb-2">{t("contact.title")}</h1>
+          <p className="text-muted-foreground mb-8">{t("contact.subtitle")}</p>
 
           {success ? (
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center text-primary">
                   <Check className="mr-2 h-5 w-5" />
-                  Message Sent Successfully
+                  {t("contact.success.title")}
                 </CardTitle>
-                <CardDescription>
-                  Thank you for contacting us. We'll respond to your inquiry
-                  soon.
-                </CardDescription>
+                <CardDescription>{t("contact.success.desc")}</CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="mb-4">
-                  Our team typically responds within 24-48 hours during business
-                  days.
-                </p>
+                <p className="mb-4">{t("contact.success.detail")}</p>
                 <Alert>
                   <MessageSquare className="h-4 w-4" />
-                  <AlertTitle>What's next?</AlertTitle>
+                  <AlertTitle>{t("contact.success.whatsNext")}</AlertTitle>
                   <AlertDescription>
-                    You'll receive a confirmation email shortly. If your inquiry
-                    is urgent, please email us directly at
-                    support@dataharvester.com.
+                    {t("contact.success.whatsNextDesc")}
                   </AlertDescription>
                 </Alert>
               </CardContent>
               <CardFooter>
                 <Button onClick={() => setSuccess(false)}>
-                  Send Another Message
+                  {t("contact.success.sendAnother")}
                 </Button>
               </CardFooter>
             </Card>
           ) : (
             <Card>
               <CardHeader>
-                <CardTitle>Contact Form</CardTitle>
-                <CardDescription>
-                  Fill out the form below to get in touch with our team
-                </CardDescription>
+                <CardTitle>{t("contact.form.title")}</CardTitle>
+                <CardDescription>{t("contact.form.desc")}</CardDescription>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                     <div className="space-y-2">
                       <Label htmlFor="name">
-                        Name <span className="text-red-500">*</span>
+                        {t("contact.name")}{" "}
+                        <span className="text-red-500">
+                          {t("contact.required")}
+                        </span>
                       </Label>
                       <div className="relative">
                         <User className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
@@ -161,7 +154,7 @@ const Contact = () => {
                           name="name"
                           value={formData.name}
                           onChange={handleChange}
-                          placeholder="Your name"
+                          placeholder={t("contact.namePlaceholder")}
                           className="pl-10"
                           required
                         />
@@ -170,7 +163,10 @@ const Contact = () => {
 
                     <div className="space-y-2">
                       <Label htmlFor="email">
-                        Email <span className="text-red-500">*</span>
+                        {t("contact.email")}{" "}
+                        <span className="text-red-500">
+                          {t("contact.required")}
+                        </span>
                       </Label>
                       <div className="relative">
                         <Mail className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
@@ -180,7 +176,7 @@ const Contact = () => {
                           type="email"
                           value={formData.email}
                           onChange={handleChange}
-                          placeholder="your.email@example.com"
+                          placeholder={t("contact.emailPlaceholder")}
                           className="pl-10"
                           required
                         />
@@ -189,26 +185,29 @@ const Contact = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="subject">Subject</Label>
+                    <Label htmlFor="subject">{t("contact.subject")}</Label>
                     <Input
                       id="subject"
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
-                      placeholder="What's your message about?"
+                      placeholder={t("contact.subjectPlaceholder")}
                     />
                   </div>
 
                   <div className="space-y-2">
                     <Label htmlFor="message">
-                      Message <span className="text-red-500">*</span>
+                      {t("contact.message")}{" "}
+                      <span className="text-red-500">
+                        {t("contact.required")}
+                      </span>
                     </Label>
                     <Textarea
                       id="message"
                       name="message"
                       value={formData.message}
                       onChange={handleChange}
-                      placeholder="How can we help you?"
+                      placeholder={t("contact.messagePlaceholder")}
                       rows={6}
                       required
                     />
@@ -217,7 +216,7 @@ const Contact = () => {
                   {error && (
                     <Alert variant="destructive">
                       <AlertCircle className="h-4 w-4" />
-                      <AlertTitle>Error</AlertTitle>
+                      <AlertTitle>{t("contact.error")}</AlertTitle>
                       <AlertDescription>{error}</AlertDescription>
                     </Alert>
                   )}
@@ -230,12 +229,12 @@ const Contact = () => {
                     {isSubmitting ? (
                       <>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Sending...
+                        {t("contact.sending")}
                       </>
                     ) : (
                       <>
                         <Send className="mr-2 h-4 w-4" />
-                        Send Message
+                        {t("contact.submit")}
                       </>
                     )}
                   </Button>
@@ -246,17 +245,13 @@ const Contact = () => {
 
           <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             <div className="rounded-lg border p-6">
-              <h3 className="text-lg font-medium mb-2">Email Us</h3>
+              <h3 className="text-lg font-medium mb-2">
+                {t("contact.emailUs")}
+              </h3>
               <p className="text-muted-foreground mb-4">
-                For general inquiries and support
+                {t("contact.generalInquiries")}
               </p>
-              <a
-                href="mailto:info@dataharvester.com"
-                className="text-primary hover:underline flex items-center"
-              >
-                <Mail className="mr-2 h-4 w-4" />
-                info@dataharvester.com
-              </a>
+              <p className="text-sm">{t("contact.emailSupport")}</p>
             </div>
 
             <div className="rounded-lg border p-6">
