@@ -1,73 +1,87 @@
-# Welcome to your Lovable project
+# DataHarvester - Thu thập dữ liệu một cách hiệu quả
 
-## Project info
+DataHarvester là một ứng dụng web hiện đại cho phép người dùng thu thập dữ liệu từ các trang web phổ biến và yêu cầu giải pháp thu thập dữ liệu tùy chỉnh thông qua biểu mẫu liên hệ.
 
-**URL**: https://lovable.dev/projects/48273d14-7840-470a-8cdb-48c5a8a26a1e
+## Tính năng chính
 
-## How can I edit this code?
+- **Thu thập dữ liệu từ các trang web phổ biến**: Amazon, eBay, LinkedIn, Google Search, Tripadvisor và nhiều trang khác
+- **Tùy chỉnh các trường dữ liệu**: Chọn chính xác dữ liệu bạn muốn thu thập (tiêu đề, giá, đánh giá, v.v.)
+- **Bảng điều khiển quản lý**: Theo dõi và quản lý các nhiệm vụ thu thập dữ liệu
+- **Yêu cầu tùy chỉnh**: Gửi yêu cầu cho dữ liệu phức tạp từ các trang web không được hỗ trợ sẵn
+- **Xuất dữ liệu đa dạng**: Tải xuống dữ liệu dưới dạng CSV, JSON hoặc Excel
+- **Hỗ trợ đa ngôn ngữ**: Tiếng Anh và tiếng Việt
+- **Chế độ sáng/tối**: Giao diện người dùng linh hoạt thân thiện với mắt
 
-There are several ways of editing your application.
+## Công nghệ sử dụng
 
-**Use Lovable**
+- **Frontend**: React, TypeScript, Vite
+- **UI Component**: shadcn/ui, Tailwind CSS, Lucide Icons
+- **State Management**: Context API và React Query
+- **Database**: Firebase Firestore
+- **Authentication**: Firebase Authentication
+- **Hosting**: Firebase Hosting
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/48273d14-7840-470a-8cdb-48c5a8a26a1e) and start prompting.
+## Hướng dẫn cài đặt
 
-Changes made via Lovable will be committed automatically to this repo.
+### Yêu cầu
 
-**Use your preferred IDE**
+- Node.js (phiên bản 16 trở lên)
+- npm hoặc yarn
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+### Các bước cài đặt
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+# Bước 1: Clone repository
+git clone <URL_GIT_CỦA_BẠN>
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# Bước 2: Di chuyển đến thư mục dự án
+cd dataharvester
 
-# Step 3: Install the necessary dependencies.
-npm i
+# Bước 3: Cài đặt các dependencies
+npm install
+# hoặc
+yarn install
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Bước 4: Khởi động server phát triển
 npm run dev
+# hoặc
+yarn dev
 ```
 
-**Edit a file directly in GitHub**
+## Cấu trúc dự án
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```
+src/
+├── components/        # Thành phần UI tái sử dụng
+├── context/           # React Context cho trạng thái ứng dụng
+├── hooks/             # Custom React hooks
+├── i18n/              # Tài nguyên đa ngôn ngữ
+├── lib/               # Các functions và tiện ích
+├── pages/             # Các trang ứng dụng
+```
 
-**Use GitHub Codespaces**
+## Ghi chú phát triển
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Firebase Setup
 
-## What technologies are used for this project?
+Để thiết lập Firebase cho dự án:
 
-This project is built with:
+1. Tạo một dự án Firebase mới tại [Firebase Console](https://console.firebase.google.com/)
+2. Bật tính năng Authentication và Firestore
+3. Cập nhật thông tin cấu hình Firebase trong `src/lib/firebase.ts`
+4. Triển khai Firestore rules từ tệp `firestore.rules`
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### Tính năng đang phát triển
 
-## How can I deploy this project?
+- Tích hợp thanh toán để hỗ trợ các gói nâng cao
+- API Scraper tùy chỉnh cho các trang web phức tạp
+- Phân tích dữ liệu và trực quan hóa
+- Lên lịch thu thập dữ liệu tự động
 
-Simply open [Lovable](https://lovable.dev/projects/48273d14-7840-470a-8cdb-48c5a8a26a1e) and click on Share -> Publish.
+## Giấy phép
 
-## Can I connect a custom domain to my Lovable project?
+Dự án này được cấp phép theo [MIT License](LICENSE).
 
-Yes, you can!
+## Liên hệ và hỗ trợ
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+Nếu bạn có bất kỳ câu hỏi nào, vui lòng gửi email đến [support@dataharvester.com](mailto:support@dataharvester.com) hoặc sử dụng biểu mẫu liên hệ trên trang web của chúng tôi.

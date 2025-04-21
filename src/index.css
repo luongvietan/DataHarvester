@@ -108,3 +108,8 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Custom utilities */
+.animation-delay-500 {
+  animation-delay: 500ms;
+}

@@ -1,5 +1,4 @@
-
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { db } from "@/lib/firebase";
 import {
   collection,
@@ -9,6 +8,10 @@ import {
   doc,
   updateDoc,
   Timestamp,
+  addDoc,
+  deleteDoc,
+  serverTimestamp,
+  DocumentReference,
 } from "firebase/firestore";
 import { useToast } from "@/components/ui/use-toast";
 import { useApiError } from "./use-api-error";
@@ -24,7 +27,15 @@ export type Task = {
   completedAt?: Date;
   items?: number;
   result?: string;
+  fields?: string[];
+  searchTerm?: string;
+  searchLocation?: string;
+  resultsLimit?: number;
+  error?: string;
 };
+
+// Kiểu dữ liệu cho task mới
+export type NewTask = Omit<Task, "id" | "createdAt" | "completedAt">;
 
 export function useRealtimeTasks(userId: string | undefined) {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -117,5 +128,113 @@ export function useRealtimeTasks(userId: string | undefined) {
     return () => unsubscribe();
   }, [userId, toast, handleError]);
 
-  return { tasks, loading };
+  // Thêm task mới
+  const addTask = useCallback(
+    async (taskData: NewTask): Promise<string> => {
+      if (!userId) throw new Error("Người dùng chưa đăng nhập");
+
+      try {
+        const tasksRef = collection(db, "scrapingTasks");
+        const docRef = await addDoc(tasksRef, {
+          ...taskData,
+          createdAt: serverTimestamp(),
+          userId,
+          status: "pending", // Đảm bảo luôn bắt đầu với trạng thái "pending"
+          notified: false,
+        });
+
+        toast({
+          title: "Nhiệm vụ đã được tạo",
+          description:
+            "Nhiệm vụ thu thập dữ liệu của bạn đã được thêm vào hàng đợi.",
+        });
+
+        return docRef.id;
+      } catch (error) {
+        handleError(error, "Không thể tạo nhiệm vụ mới");
+        throw error;
+      }
+    },
+    [userId, toast, handleError]
+  );
+
+  // Cập nhật task
+  const updateTask = useCallback(
+    async (taskId: string, updates: Partial<Task>): Promise<void> => {
+      if (!userId) throw new Error("Người dùng chưa đăng nhập");
+
+      try {
+        const taskRef = doc(db, "scrapingTasks", taskId);
+
+        // Đảm bảo người dùng chỉ cập nhật task của chính họ
+        const task = tasks.find((t) => t.id === taskId);
+        if (!task || task.userId !== userId) {
+          throw new Error("Không có quyền cập nhật nhiệm vụ này");
+        }
+
+        const updateData: Record<string, unknown> = { ...updates };
+
+        // Nếu cập nhật trạng thái thành "completed", tự động thêm completedAt
+        if (updates.status === "completed" && !updates.completedAt) {
+          updateData.completedAt = serverTimestamp();
+        }
+
+        await updateDoc(taskRef, updateData);
+
+        toast({
+          title: "Nhiệm vụ đã được cập nhật",
+          description: "Các thay đổi đã được lưu thành công.",
+        });
+      } catch (error) {
+        handleError(error, "Không thể cập nhật nhiệm vụ");
+        throw error;
+      }
+    },
+    [userId, tasks, toast, handleError]
+  );
+
+  // Xóa task
+  const deleteTask = useCallback(
+    async (taskId: string): Promise<void> => {
+      if (!userId) throw new Error("Người dùng chưa đăng nhập");
+
+      try {
+        const taskRef = doc(db, "scrapingTasks", taskId);
+
+        // Đảm bảo người dùng chỉ xóa task của chính họ
+        const task = tasks.find((t) => t.id === taskId);
+        if (!task || task.userId !== userId) {
+          throw new Error("Không có quyền xóa nhiệm vụ này");
+        }
+
+        await deleteDoc(taskRef);
+
+        toast({
+          title: "Nhiệm vụ đã được xóa",
+          description: "Nhiệm vụ đã được xóa thành công khỏi hệ thống.",
+        });
+      } catch (error) {
+        handleError(error, "Không thể xóa nhiệm vụ");
+        throw error;
+      }
+    },
+    [userId, tasks, toast, handleError]
+  );
+
+  // Lấy task theo ID
+  const getTaskById = useCallback(
+    (taskId: string): Task | undefined => {
+      return tasks.find((task) => task.id === taskId);
+    },
+    [tasks]
+  );
+
+  return {
+    tasks,
+    loading,
+    addTask,
+    updateTask,
+    deleteTask,
+    getTaskById,
+  };
 }

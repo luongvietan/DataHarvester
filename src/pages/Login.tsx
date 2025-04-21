@@ -3,38 +3,58 @@ import { Header } from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Mail, Key, Eye, EyeOff, LogIn } from "lucide-react";
+import { Mail, Key, Eye, EyeOff, LogIn, AlertCircle } from "lucide-react";
 import { useState, FormEvent } from "react";
-import { useFirebaseAuth } from "@/hooks/use-firebase-auth";
+import { useAuth } from "@/context/AuthContext";
 import { useToast } from "@/components/ui/use-toast";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { signIn } = useFirebaseAuth();
+  const [emailVerificationNeeded, setEmailVerificationNeeded] = useState(false);
+  const { signIn } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    setEmailVerificationNeeded(false);
 
     try {
-      await signIn(email, password);
+      const user = await signIn(email, password);
+
+      if (user && !user.emailVerified) {
+        setEmailVerificationNeeded(true);
+        setIsLoading(false);
+        return;
+      }
+
       toast({
-        title: "Login Successful",
-        description: "You are being redirected to the dashboard.",
+        title: "Đăng nhập thành công",
+        description: "Bạn đang được chuyển hướng đến bảng điều khiển.",
       });
       navigate("/dashboard");
     } catch (error: unknown) {
-      const authError = error as { message?: string };
+      const authError = error as { message?: string; code?: string };
+      let errorMessage = "Vui lòng kiểm tra thông tin đăng nhập và thử lại.";
+
+      if (authError.code === "auth/wrong-password") {
+        errorMessage = "Sai mật khẩu. Vui lòng thử lại.";
+      } else if (authError.code === "auth/user-not-found") {
+        errorMessage = "Không tìm thấy tài khoản với email này.";
+      } else if (authError.code === "auth/too-many-requests") {
+        errorMessage = "Quá nhiều lần thử. Vui lòng thử lại sau.";
+      } else if (authError.message) {
+        errorMessage = authError.message;
+      }
+
       toast({
-        title: "Login Failed",
-        description:
-          authError.message ||
-          "Please check your login credentials and try again.",
+        title: "Đăng nhập thất bại",
+        description: errorMessage,
         variant: "destructive",
       });
     } finally {
@@ -47,9 +67,20 @@ const Login = () => {
       <Header />
       <main className="flex-1 flex flex-col items-center justify-center px-4 py-8 animate-fade-in">
         <h1 className="text-3xl font-bold mb-4 text-center text-primary">
-          Sign in to DataHarvester
+          Đăng nhập vào DataHarvester
         </h1>
+
         <div className="w-full max-w-sm p-8 rounded-2xl bg-gradient-to-br from-card/80 via-secondary/70 to-background/70 shadow-xl glass-morphism border border-border">
+          {emailVerificationNeeded && (
+            <Alert variant="warning" className="mb-6">
+              <AlertCircle className="h-4 w-4" />
+              <AlertDescription>
+                Vui lòng xác thực email của bạn trước khi đăng nhập. Kiểm tra
+                hộp thư đến của bạn.
+              </AlertDescription>
+            </Alert>
+          )}
+
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <Label htmlFor="email" className="mb-1 block">
@@ -65,7 +96,7 @@ const Login = () => {
                   id="email"
                   name="email"
                   type="email"
-                  placeholder="Enter your email"
+                  placeholder="Nhập email của bạn"
                   autoComplete="email"
                   required
                   value={email}
@@ -75,7 +106,7 @@ const Login = () => {
             </div>
             <div>
               <Label htmlFor="password" className="mb-1 block">
-                Password
+                Mật khẩu
               </Label>
               <div className="relative">
                 <Key
@@ -87,7 +118,7 @@ const Login = () => {
                   id="password"
                   name="password"
                   type={showPassword ? "text" : "password"}
-                  placeholder="Enter your password"
+                  placeholder="Nhập mật khẩu của bạn"
                   autoComplete="current-password"
                   required
                   value={password}
@@ -98,7 +129,7 @@ const Login = () => {
                   tabIndex={-1}
                   onClick={() => setShowPassword((s) => !s)}
                   className="absolute right-3 top-2.5 text-muted-foreground"
-                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  aria-label={showPassword ? "Ẩn mật khẩu" : "Hiện mật khẩu"}
                 >
                   {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
@@ -110,7 +141,7 @@ const Login = () => {
               ) : (
                 <LogIn className="inline-block" size={18} />
               )}
-              {isLoading ? "Logging in..." : "Sign In"}
+              {isLoading ? "Đang đăng nhập..." : "Đăng nhập"}
             </Button>
           </form>
           <div className="flex flex-col gap-2 text-sm text-center mt-5">
@@ -118,15 +149,15 @@ const Login = () => {
               to="/forgot-password"
               className="text-primary underline font-medium hover:text-primary/80 transition-colors"
             >
-              Forgot password?
+              Quên mật khẩu?
             </Link>
             <span>
-              Don&apos;t have an account?{" "}
+              Chưa có tài khoản?{" "}
               <Link
                 className="text-primary underline font-medium hover:text-primary/80"
                 to="/signup"
               >
-                Sign Up
+                Đăng ký
               </Link>
             </span>
           </div>

@@ -22,6 +22,45 @@ const resources = {
       "auth.password": "Mật khẩu",
       "auth.confirmPassword": "Xác nhận mật khẩu",
       "auth.name": "Họ tên",
+      "auth.loginSuccess": "Đăng nhập thành công",
+      "auth.loginSuccessDesc":
+        "Bạn đang được chuyển hướng đến bảng điều khiển.",
+      "auth.loginFailed": "Đăng nhập thất bại",
+      "auth.signupSuccess": "Đăng ký thành công",
+      "auth.signupSuccessDesc":
+        "Một email xác thực đã được gửi đến địa chỉ email của bạn.",
+      "auth.signupFailed": "Đăng ký thất bại",
+      "auth.passwordsDontMatch": "Mật khẩu không khớp",
+      "auth.passwordsDontMatchDesc":
+        "Vui lòng kiểm tra mật khẩu xác nhận của bạn.",
+      "auth.verifyEmail": "Xác thực email của bạn",
+      "auth.verifyEmailDesc":
+        "Chúng tôi đã gửi một email xác thực đến email của bạn. Vui lòng kiểm tra hộp thư đến và nhấp vào liên kết để xác thực tài khoản của bạn.",
+      "auth.didntReceiveEmail": "Không nhận được email?",
+      "auth.resendVerification": "Gửi lại email xác thực",
+      "auth.emailResent": "Email đã được gửi lại",
+      "auth.emailResentDesc": "Vui lòng kiểm tra hộp thư đến của bạn.",
+      "auth.emailNotResent": "Không thể gửi lại email",
+      "auth.emailNotResentDesc": "Vui lòng thử lại sau.",
+      "auth.alreadyHaveAccount": "Đã có tài khoản?",
+      "auth.dontHaveAccount": "Chưa có tài khoản?",
+      "auth.backToSignup": "Quay lại đăng ký",
+      "auth.goToLogin": "Đi đến đăng nhập",
+      "auth.resetPasswordTitle": "Đặt lại mật khẩu",
+      "auth.resetPasswordDesc":
+        "Nhập địa chỉ email của bạn và chúng tôi sẽ gửi cho bạn liên kết để đặt lại mật khẩu.",
+      "auth.resetEmailSent": "Email đặt lại đã được gửi",
+      "auth.resetEmailSentDesc":
+        "Vui lòng kiểm tra hộp thư đến của bạn để đặt lại mật khẩu.",
+      "auth.resetRequestFailed": "Yêu cầu thất bại",
+      "auth.emailSent": "Email đã được gửi!",
+      "auth.sendResetLink": "Gửi liên kết đặt lại mật khẩu",
+      "auth.sending": "Đang gửi...",
+      "auth.sendToAnotherEmail": "Gửi lại đến email khác",
+      "auth.backToLogin": "Quay lại đăng nhập",
+      "auth.processing": "Đang xử lý...",
+      "auth.emailVerificationRequired":
+        "Vui lòng xác thực email của bạn trước khi đăng nhập. Kiểm tra hộp thư đến của bạn.",
 
       // Navigation
       "nav.home": "Trang chủ",
@@ -162,6 +201,43 @@ const resources = {
       "auth.password": "Password",
       "auth.confirmPassword": "Confirm Password",
       "auth.name": "Full Name",
+      "auth.loginSuccess": "Login Successful",
+      "auth.loginSuccessDesc": "You are being redirected to the dashboard.",
+      "auth.loginFailed": "Login Failed",
+      "auth.signupSuccess": "Sign Up Successful",
+      "auth.signupSuccessDesc":
+        "A verification email has been sent to your email address.",
+      "auth.signupFailed": "Sign Up Failed",
+      "auth.passwordsDontMatch": "Passwords Don't Match",
+      "auth.passwordsDontMatchDesc": "Please check your confirmation password.",
+      "auth.verifyEmail": "Verify Your Email",
+      "auth.verifyEmailDesc":
+        "We've sent a verification email to your email address. Please check your inbox and click the link to verify your account.",
+      "auth.didntReceiveEmail": "Didn't receive the email?",
+      "auth.resendVerification": "Resend Verification Email",
+      "auth.emailResent": "Email Resent",
+      "auth.emailResentDesc": "Please check your inbox.",
+      "auth.emailNotResent": "Unable to Resend Email",
+      "auth.emailNotResentDesc": "Please try again later.",
+      "auth.alreadyHaveAccount": "Already have an account?",
+      "auth.dontHaveAccount": "Don't have an account?",
+      "auth.backToSignup": "Back to Sign Up",
+      "auth.goToLogin": "Go to Login",
+      "auth.resetPasswordTitle": "Reset Password",
+      "auth.resetPasswordDesc":
+        "Enter your email and we'll send you a link to reset your password.",
+      "auth.resetEmailSent": "Reset Email Sent",
+      "auth.resetEmailSentDesc":
+        "Please check your inbox to reset your password.",
+      "auth.resetRequestFailed": "Reset Request Failed",
+      "auth.emailSent": "Email Sent!",
+      "auth.sendResetLink": "Send Reset Link",
+      "auth.sending": "Sending...",
+      "auth.sendToAnotherEmail": "Send to Another Email",
+      "auth.backToLogin": "Back to Login",
+      "auth.processing": "Processing...",
+      "auth.emailVerificationRequired":
+        "Please verify your email before logging in. Check your inbox.",
 
       // Navigation
       "nav.home": "Home",
