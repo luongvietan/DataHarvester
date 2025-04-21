@@ -11,7 +11,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyBa2RbE4cUYGZbdQeXywpwlGs8og53Arb4",
   authDomain: "dataharvester-233d8.firebaseapp.com",
   projectId: "dataharvester-233d8",
-  storageBucket: "dataharvester-233d8.firebasestorage.app",
+  storageBucket: "dataharvester-233d8.appspot.com", //dataharvester-233d8.firebasestorage.app
   messagingSenderId: "96074541154",
   appId: "1:96074541154:web:d19c2f26203ab33866893b",
   measurementId: "G-SLW7CLRQ5M",
