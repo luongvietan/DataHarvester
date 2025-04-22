@@ -120,6 +120,19 @@ export function Header() {
             >
               {t("nav.contact")}
             </Link>
+            {user && (
+              <Link
+                to="/dashboard"
+                className={cn(
+                  "text-sm font-medium transition-colors hover:text-primary",
+                  location.pathname === "/dashboard"
+                    ? "text-foreground"
+                    : "text-muted-foreground"
+                )}
+              >
+                {t("nav.dashboard")}
+              </Link>
+            )}
           </nav>
         </div>
         <div className="flex items-center gap-2">

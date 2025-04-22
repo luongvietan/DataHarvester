@@ -2,9 +2,14 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useFirebaseAuth } from "@/hooks/use-firebase-auth";
 
 export function HeroSection() {
   const { t } = useTranslation();
+  const { user } = useFirebaseAuth();
+
+  // Điều hướng dựa trên trạng thái đăng nhập
+  const getStartedPath = user ? "/dashboard" : "/signup";
 
   return (
     <section className="py-20 px-4 md:px-6 lg:px-8">
@@ -20,7 +25,7 @@ export function HeroSection() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
             <Button size="lg" asChild>
-              <Link to="/signup">
+              <Link to={getStartedPath}>
                 {t("hero.getStarted")}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>

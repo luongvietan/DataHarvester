@@ -339,7 +339,7 @@ const resources = {
       "signup.goToLogin": "Go to login",
 
       // Hero Section (Home)
-      "hero.title": "Harvest Data Effortlessly with {appName}",
+      "hero.title": "Harvest Data Effortlessly with DataHarvester",
       "hero.subtitle":
         "Scrape data from popular websites or request custom solutions with ease. Transform your data collection process with our powerful, user-friendly platform.",
       "hero.getStarted": "Get Started",
